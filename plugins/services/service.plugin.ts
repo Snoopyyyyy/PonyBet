@@ -8,11 +8,9 @@ import FakeBetService from './fake/FakeBetService';
 import ApiPostService from './api/ApiPostService';
 import ApiCommentService from './api/ApiCommentService';
 
-const API = 'https://jsonplaceholder.typicode.com/';
-
 declare module '@nuxt/types' {
 	interface Context {
-		serviceManager: {
+		$serviceManager: {
 			ponyService: IPonyService
 			betService: IBetService
 			postService: IPostService
@@ -30,8 +28,8 @@ const serviceManager: Plugin = ({ $axios }, inject) => {
 	} = {
 		ponyService: new FakePonyService(),
 		betService: new FakeBetService(),
-		postService: new ApiPostService(API, $axios),
-		commentService: new ApiCommentService(API, $axios),
+		postService: new ApiPostService($axios),
+		commentService: new ApiCommentService($axios),
 	};
 
 	inject('serviceManager', services);

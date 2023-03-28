@@ -11,28 +11,26 @@ const headers = {
 
 export default class ApiPostService implements IPostService {
     axios: axios.NuxtAxiosInstance
-    apiUrl: string
 
-    constructor(apiUrl: string, $axios: axios.NuxtAxiosInstance) {
+    constructor($axios: axios.NuxtAxiosInstance) {
         this.axios = $axios;
-        this.apiUrl = apiUrl;
     }
     
     getAll(): Promise<Post[]> {
-        return this.axios.$get<Post[]>(`${this.apiUrl}/posts`);
+        return this.axios.$get<Post[]>(`/posts`);
     }
     
     getById(id: number): Promise<Post> {
-        return this.axios.$get<Post>(`${this.apiUrl}/posts/${id}`);
+        return this.axios.$get<Post>(`/posts/${id}`);
     }
     
     getComments(postId: number): Promise<Comment[]> {
-        return this.axios.$get<Comment[]>(`${this.apiUrl}/posts/${postId}/comments`);
+        return this.axios.$get<Comment[]>(`/posts/${postId}/comments`);
     }
     
     create(post: Post): Promise<Post> {
         return this.axios.$post<Post>(
-            `${this.apiUrl}/posts`, 
+            `/posts`, 
             JSON.stringify({ 
                 title: post.title, 
                 body: post.body, 
@@ -43,7 +41,7 @@ export default class ApiPostService implements IPostService {
     
     update(id: number, post: Post): Promise<Post> {
         return this.axios.$put<Post>(
-            `${this.apiUrl}/posts/${id}`, 
+            `/posts/${id}`, 
             JSON.stringify({ 
                 id,
                 title: post.title, 
@@ -54,11 +52,11 @@ export default class ApiPostService implements IPostService {
     }
     
     patch(id: number, data: { title: string; body: string; }): Promise<Post> {
-        return this.axios.$patch<Post>(`${this.apiUrl}/posts/${id}`, JSON.stringify(data), headers); 
+        return this.axios.$patch<Post>(`/posts/${id}`, JSON.stringify(data), headers); 
     }
     
     delete(id: number): Promise<Post> {
-        return this.axios.$delete<Post>(`${this.apiUrl}/posts/${id}`); 
+        return this.axios.$delete<Post>(`/posts/${id}`); 
     }
 
 }

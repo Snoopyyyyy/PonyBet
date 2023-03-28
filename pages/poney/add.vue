@@ -29,14 +29,13 @@ import { Pony } from '~/plugins/models';
 
 export default Vue.extend({
     name: 'PonyAddPage',
-    asyncData({ serviceManager }) {
+    asyncData() {
         return {
             pony: new Pony(),
         }
     },
     methods: {
-        handlSubmit: async function() {
-            await this?.$parent?.$serviceManager.ponyService.create(this.pony);
+        handlSubmit: function() {
             console.log('yaa')
         }
     }
