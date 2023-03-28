@@ -27,6 +27,7 @@ export default class FakePonyService implements IPonyService {
         return new Promise((resolve) => {
             pony.id = (this.id++).toString();
             this.ponies.push(pony);
+            console.log("pk", this.ponies)
             resolve(pony);
         })
     }
